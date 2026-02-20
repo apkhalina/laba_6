@@ -21,6 +21,8 @@ InvokeClass.java - Создаем класс с методами
 InvokeProcessor.java - создаем класс обработчик
 Через цикл проверяем, в каком методе есть аннотация.
 
+<img width="177" height="64" alt="image" src="https://github.com/user-attachments/assets/a23f0d53-03fd-4ff0-93f1-828261869c4c" />
+
 
 ## Задание 2
 @Default.  
@@ -42,6 +44,8 @@ DefaultHuman.java - Применяем аннотацию к классу
 
 DefaultProcessor.java - Создаем обработчик
 Создаем метод принимающий объект класса. Проверяем есть ли аннотация. Если да, то извлекаем тип по умолчанию.
+
+<img width="402" height="40" alt="image" src="https://github.com/user-attachments/assets/ec80c1b7-ec1c-431b-bfb9-7c000136fc74" />
 
 
 ## Задание 3
@@ -66,6 +70,8 @@ ToStringHuman.java
 ToStringLine.java
 Создаем метод принимающий объект. Проверяем помечен ли класс аннотацией. Проверяем наличие аннотации для каждого поля. Собираем все строку.
 
+<img width="266" height="47" alt="image" src="https://github.com/user-attachments/assets/b72e1247-a79d-4727-92df-041285eb418d" />
+
 
 ## Задание 4
 @Validate.  
@@ -87,6 +93,8 @@ ValidateClass.java
 ValidateProcessor.java
 Создаем метод, который принимает класс. Проверяем есть ли аннотация. Если да, то извлекаем массив типов и выводим их.
 
+<img width="401" height="112" alt="image" src="https://github.com/user-attachments/assets/537f17ac-5862-4a5c-9f73-f65dd60c093e" />
+
 
 ## Задание 5
 @Two. 
@@ -107,6 +115,8 @@ TwoClass.java
 
 TwoProcessor.java
 Создаем класс обработчика. Создаем метод, который принимает объект описывающий класса. Проверяем есть ли аннотация. Если да, то извлекаем ее значения свойств и выводим.
+
+<img width="205" height="69" alt="image" src="https://github.com/user-attachments/assets/b25cc0c0-dddf-4362-bca0-65b347f21657" />
 
 
 ## Задание 6
@@ -130,3 +140,5 @@ CacheClass.java
 
 CacheProcessor.java
 Создаём метод, который принимает объект, описывающий класс. Проверяем, есть аннотация. Если да, то извлекаем её свойство, представляющее собой список кешируемых областей, и выводим эти значения.
+
+<img width="220" height="117" alt="image" src="https://github.com/user-attachments/assets/6cb76284-a5e4-4c2b-83c3-b6d98b916715" />
