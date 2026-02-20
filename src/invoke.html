@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Invoke -->
+    <annotation>
+        <name>Invoke</name>
+        <description>
+            Аннотация @Invoke используется для того, чтобы отмечать методы,
+            которые должны быть выполнены автоматически.
+        </description>
+        <characteristics>
+            <target>Метод (METHOD)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>Не имеет никаких свойств</properties>
+        </characteristics>
+        <purpose>
+            Позволяет помечать методы, которые будут найдены и вызваны
+            обработчиком через Reflection API.
+        </purpose>
+    </annotation>
+
+    <!-- Документация класса InvokeClass -->
+    <class>
+        <name>InvokeClass</name>
+        <description>
+            Класс содержит три обычных методов. Два из них
+            помечены аннотацией @Invoke. Именно эти методы будут автоматически
+            вызваны обработчиком.
+        </description>
+
+        <methods>
+
+            <method>
+                <name>heloo</name>
+                <marked-with-invoke>Да</marked-with-invoke>
+                <description>
+                    Выводит сообщение "Привет!". Этот метод помечен аннотацией
+                    @Invoke, поэтому обработчик вызовет его автоматически.
+                </description>
+            </method>
+
+            <method>
+                <name>affair</name>
+                <marked-with-invoke>Да</marked-with-invoke>
+                <description>
+                    Выводит сообщение "Как дела?". Тоже помечен @Invoke
+                    и будет вызван автоматически.
+                </description>
+            </method>
+
+            <method>
+                <name>bye</name>
+                <marked-with-invoke>Нет</marked-with-invoke>
+                <description>
+                    Выводит сообщение "Пока!". Этот метод не помечен аннотацией,
+                    поэтому не будет вызван обработчиком.
+                </description>
+            </method>
+
+        </methods>
+    </class>
+
+    <!-- Документация обработчика InvokeProcessor -->
+    <class>
+        <name>InvokeProcessor</name>
+        <description>
+            Этот класс ищет методы с аннотацией @Invoke и запускает их
+            автоматически. Для этого используется Reflection API.
+        </description>
+
+        <methods>
+            <method>
+                <name>process</name>
+                <description>
+                    Принимает объект, находит все его методы, помеченные @Invoke,
+                    и вызывает их.
+                </description>
+
+                <steps>
+                    <step>1. Получить класс объекта.</step>
+                    <step>2. Получить все методы класса.</step>
+                    <step>3. Проверить каждый метод на наличие аннотации @Invoke.</step>
+                    <step>4. Если метод помечен — вызвать его.</step>
+                    <step>5. Если при вызове возникла ошибка, вывести её.</step>
+                </steps>
+
+                <result>
+                    Все методы с аннотацией @Invoke будут выполнены автоматически.
+                </result>
+            </method>
+        </methods>
+    </class>
+
+</documentation>

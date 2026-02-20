@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @ToString -->
+    <annotation>
+        <name>ToString</name>
+
+        <description>
+            Аннотация @ToString используется для того, чтобы управлять тем,
+            какие поля или классы должны участвовать в автоматическом формировании
+            строкового представления объекта.
+        </description>
+
+        <characteristics>
+            <target>Класс (TYPE) и поле (FIELD)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>
+                Имеет одно свойство value, которое может принимать значения YES или NO.
+                Значение по умолчанию: YES.
+            </properties>
+        </characteristics>
+
+        <purpose>
+            Позволяет задавать, какие поля должны быть включены или исключены из
+            автоматически сформированной строки, создаваемой обработчиком
+            ToStringLine через Reflection API.
+        </purpose>
+    </annotation>
+
+
+
+    <!-- Документация класса ToStringHuman -->
+    <class>
+        <name>ToStringHuman</name>
+
+        <description>
+            Класс представляет человека с двумя характеристиками: именем и ростом.
+            Аннотация @ToString позволяет управлять тем, какие поля будут включены
+            в автоматически формируемую строку. Поле height помечено как NO, поэтому
+            оно будет исключено обработчиком.
+        </description>
+
+        <fields>
+
+            <field>
+                <name>name</name>
+                <marked-with-ToString>Да (по умолчанию)</marked-with-ToString>
+                <description>
+                    Хранит имя человека. Так как аннотация явно не указана,
+                    используется значение по умолчанию (YES), и поле будет включено в строку.
+                </description>
+            </field>
+
+            <field>
+                <name>height</name>
+                <marked-with-ToString>Нет</marked-with-ToString>
+                <description>
+                    Хранит рост человека. Помечено аннотацией @ToString(NO),
+                    поэтому не будет включено в строковое представление.
+                </description>
+            </field>
+
+        </fields>
+
+        <purpose>
+            Используется для демонстрации работы аннотации @ToString и
+            класса ToStringLine.
+        </purpose>
+
+    </class>
+
+
+
+    <!-- Документация обработчика ToStringLine -->
+    <class>
+        <name>ToStringLine</name>
+
+        <description>
+            Класс предназначен для автоматического создания строкового представления
+            объектов, аннотированных @ToString. Для определения, какие поля должны
+            быть включены, используется механизм Reflection API.
+        </description>
+
+        <methods>
+
+            <method>
+                <name>toAnnotatedString</name>
+
+                <description>
+                    Метод принимает объект, проверяет, помечен ли его класс аннотацией
+                    @ToString, и затем формирует строку, включающую только те поля,
+                    которые либо не имеют аннотации, либо явно помечены как YES.
+                </description>
+
+                <steps>
+                    <step>1. Получить класс переданного объекта.</step>
+                    <step>2. Проверить, помечен ли класс аннотацией @ToString.</step>
+                    <step>3. Получить список всех полей класса.</step>
+                    <step>4. Для каждого поля:</step>
+                    <step>4.1. Определить, есть ли аннотация @ToString.</step>
+                    <step>4.2. Если значение NO — пропустить поле.</step>
+                    <step>4.3. Если значение YES или аннотация отсутствует — включить поле.</step>
+                    <step>5. Собрать итоговую строку в формате ClassName{field=value}.</step>
+                </steps>
+
+                <result>
+                    Возвращается строковое представление объекта, содержащее только
+                    разрешённые полями аннотации @ToString.
+                </result>
+            </method>
+
+        </methods>
+    </class>
+
+</documentation>

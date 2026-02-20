@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Two -->
+    <annotation>
+        <name>Two</name>
+        <description>
+            Аннотация @Two предназначена для маркировки классов двумя свойствами:
+            строковым значением first и числовым значением second.
+            Эти данные читаются во время выполнения при помощи Reflection API.
+        </description>
+
+        <characteristics>
+            <target>Тип (TYPE)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>
+                <property>
+                    <name>first</name>
+                    <type>String</type>
+                    <description>
+                        Строковое свойство, обязательное к заполнению.
+                        Используется для прикрепления текстовой информации.
+                    </description>
+                </property>
+                <property>
+                    <name>second</name>
+                    <type>int</type>
+                    <description>
+                        Числовое свойство, обязательное к заполнению.
+                        Может использоваться как идентификатор или код.
+                    </description>
+                </property>
+            </properties>
+        </characteristics>
+
+        <purpose>
+            Позволяет прикреплять к классу дополнительные параметры, которые затем
+            могут быть прочитаны и использованы обработчиком.
+        </purpose>
+    </annotation>
+
+
+    <!-- Документация класса TwoClass -->
+    <class>
+        <name>TwoClass</name>
+        <description>
+            Класс служит примером использования аннотации @Two. Он специально
+            помечен статическими значениями first="ИТ" и second=8, которые затем
+            будут считаны обработчиком TwoProcessor.
+        </description>
+
+        <annotation-info>
+            <applied>@Two(first = "ИТ", second = 8)</applied>
+            <description>
+                Аннотация содержит корректные свойства и демонстрирует работу
+                механизма чтения метаданных.
+            </description>
+        </annotation-info>
+    </class>
+
+
+    <!-- Документация обработчика TwoProcessor -->
+    <class>
+        <name>TwoProcessor</name>
+        <description>
+            Этот класс выполняет анализ типа и проверку наличия аннотации @Two.
+            Если она найдена, обработчик извлекает свойства first и second
+            и выводит их в консоль.
+        </description>
+
+        <methods>
+            <method>
+                <name>process</name>
+                <description>
+                    Принимает объект типа Class и проверяет наличие аннотации @Two.
+                    Если аннотация присутствует — выводит её свойства.
+                </description>
+
+                <steps>
+                    <step>1. Получить переданный класс.</step>
+                    <step>2. Проверить наличие аннотации @Two.</step>
+                    <step>3. Извлечь объект аннотации.</step>
+                    <step>4. Считать значения свойств first и second.</step>
+                    <step>5. Вывести значения в консоль.</step>
+                    <step>6. Если аннотации нет — вывести предупреждение.</step>
+                </steps>
+
+                <result>
+                    Значения аннотации @Two корректно обнаружены и выведены.
+                </result>
+            </method>
+        </methods>
+    </class>
+
+
+    <!-- Документация теста TwoAnnotationTest -->
+    <class>
+        <name>TwoAnnotationTest</name>
+        <description>
+            JUnit-тест, проверяющий корректность обработки аннотации @Two.
+            Тест гарантирует, что при некорректных значениях аннотации
+            выбрасывается исключение IllegalArgumentException.
+        </description>
+
+        <methods>
+            <method>
+                <name>testInvalidAnnotationValues</name>
+                <description>
+                    Считывает свойства аннотации @Two с класса
+                    InvalidTwoClass, у которого свойство first пустое,
+                    а second отрицательное.
+                    Проверяет, что метод validate() выбрасывает исключение.
+                </description>
+
+                <steps>
+                    <step>1. Передать класс InvalidTwoClass методу validate().</step>
+                    <step>2. Попытаться прочитать свойства аннотации.</step>
+                    <step>3. Проверить: first == "" — нарушено.</step>
+                    <step>4. Проверить: second &lt; 0 — нарушено.</step>
+                    <step>5. Выбросить IllegalArgumentException.</step>
+                    <step>6. assertThrows() подтверждает выброс исключения.</step>
+                </steps>
+
+                <result>
+                    Тест успешно проходит, подтверждая корректную обработку
+                    невалидных значений аннотации @Two.
+                </result>
+            </method>
+        </methods>
+    </class>
+
+</documentation>

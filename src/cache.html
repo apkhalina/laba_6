@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Cache -->
+    <annotation>
+        <name>Cache</name>
+        <description>
+            Аннотация @Cache используется для указания кешируемых областей внутри класса.
+            Это позволяет обработчику во время выполнения программы определить,
+            какие именно логические части данных следует считать кешируемыми.
+        </description>
+
+        <characteristics>
+            <target>Тип (TYPE)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>
+                Свойство value является необязательным и имеет тип String[].
+                Значение по умолчанию — пустой массив.
+            </properties>
+        </characteristics>
+
+        <purpose>
+            Аннотация позволяет связывать класс с набором кешируемых областей,
+            чтобы обработчик мог вывести их или использовать в логике кеширования.
+        </purpose>
+    </annotation>
+
+
+    <!-- Документация класса CacheClass -->
+    <class>
+        <name>CacheClass</name>
+        <description>
+            Класс содержит методы, работающие с различными данными — пользователями,
+            возрастом и числовыми значениями. Он помечен аннотацией @Cache, что делает
+            доступными для обработки три кешируемые области:
+            "users", "age" и "number".
+        </description>
+
+        <cached-areas>
+            <area>users</area>
+            <area>age</area>
+            <area>number</area>
+        </cached-areas>
+
+        <methods>
+
+            <method>
+                <name>getUser</name>
+                <marked-with-cache>Нет (аннотация стоит на классе)</marked-with-cache>
+                <description>
+                    Возвращает строку с обозначением пользователя по его id.
+                    Метод сам по себе не аннотирован, но логически связан
+                    с кешируемой областью "users".
+                </description>
+            </method>
+
+            <method>
+                <name>getAge</name>
+                <marked-with-cache>Нет</marked-with-cache>
+                <description>
+                    Возвращает строку с обозначением возраста пользователя
+                    по его id. Соотносится с областью "age".
+                </description>
+            </method>
+
+            <method>
+                <name>number</name>
+                <marked-with-cache>Нет</marked-with-cache>
+                <description>
+                    Возвращает числовое значение. Логически относится
+                    к кешируемой области "number".
+                </description>
+            </method>
+
+        </methods>
+    </class>
+
+
+    <!-- Документация обработчика CacheProcessor -->
+    <class>
+        <name>CacheProcessor</name>
+        <description>
+            Этот класс предназначен для анализа аннотации @Cache, применённой
+            к классу. Он выводит список всех кешируемых областей либо сообщает,
+            что список пуст. Для работы используется Reflection API.
+        </description>
+
+        <methods>
+
+            <method>
+                <name>process</name>
+                <description>
+                    Принимает объект класса или сам класс, проверяет наличие
+                    аннотации @Cache и выводит все её значения.
+                </description>
+
+                <steps>
+                    <step>1. Получить класс объекта.</step>
+                    <step>2. Проверить, присутствует ли аннотация @Cache.</step>
+                    <step>3. Получить массив строк из свойства value().</step>
+                    <step>4. Если массив пуст — вывести сообщение об отсутствии областей.</step>
+                    <step>5. Если не пуст — вывести каждую кешируемую область.</step>
+                </steps>
+
+                <result>
+                    На экран будет выведен список всех кешируемых областей,
+                    указанных в аннотации @Cache, либо сообщение о том,
+                    что таких областей нет.
+                </result>
+            </method>
+
+        </methods>
+    </class>
+
+</documentation>

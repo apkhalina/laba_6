@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Default -->
+    <annotation>
+        <name>Default</name>
+        <description>
+            Аннотация @Default используется для указания типа по умолчанию,
+            связанного с классом или полем. Значение аннотации представляет
+            собой объект Class, который задаётся вручную.
+        </description>
+
+        <characteristics>
+            <target>Тип (TYPE), Поле (FIELD)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>
+                Свойство value (обязательно): принимает объект типа Class.
+            </properties>
+        </characteristics>
+
+        <purpose>
+            Позволяет прикреплять к классу или полю информацию о связанном
+            с ним типе по умолчанию. Эта информация может быть прочитана
+            обработчиком через Reflection API во время выполнения программы.
+        </purpose>
+    </annotation>
+
+
+    <!-- Документация класса DefaultHuman -->
+    <class>
+        <name>DefaultHuman</name>
+        <description>
+            Класс представляет человека с именем и ростом.
+            Он аннотирован @Default(String.class), что означает, для
+            данного класса типом по умолчанию считается String.
+        </description>
+
+        <fields>
+            <field>
+                <name>name</name>
+                <type>String</type>
+                <description>Имя человека.</description>
+            </field>
+
+            <field>
+                <name>height</name>
+                <type>int</type>
+                <description>Рост человека.</description>
+            </field>
+        </fields>
+
+        <methods>
+
+            <method>
+                <name>getName</name>
+                <description>Возвращает имя человека.</description>
+            </method>
+
+            <method>
+                <name>setName</name>
+                <description>Устанавливает имя человека.</description>
+            </method>
+
+            <method>
+                <name>getHeight</name>
+                <description>Возвращает рост человека.</description>
+            </method>
+
+            <method>
+                <name>setHeight</name>
+                <description>Устанавливает рост человека.</description>
+            </method>
+
+            <method>
+                <name>toString</name>
+                <description>
+                    Возвращает строковое представление объекта DefaultHuman:
+                    "Имя с ростом N".
+                </description>
+            </method>
+
+        </methods>
+    </class>
+
+
+
+    <!-- Документация обработчика DefaultProcessor -->
+    <class>
+        <name>DefaultProcessor</name>
+        <description>
+            Обработчик аннотации @Default. Позволяет получать через
+            Reflection значение, указанное в аннотации, и выводить
+            имя класса по умолчанию.
+        </description>
+
+        <methods>
+
+            <method>
+                <name>printDefaultClass</name>
+                <description>
+                    Метод получает класс, проверяет, есть ли на нём аннотация
+                    @Default, и выводит имя типа, указанного в аннотации.
+                </description>
+
+                <steps>
+                    <step>1. Проверить, есть ли на классе аннотация @Default.</step>
+                    <step>2. Если аннотация есть — извлечь её объект.</step>
+                    <step>3. Получить значение свойства value (тип по умолчанию).</step>
+                    <step>4. Вывести имя этого класса в консоль.</step>
+                    <step>5. Если аннотации нет — вывести соответствующее сообщение.</step>
+                </steps>
+
+                <result>
+                    Получаем информацию о том, какой тип указан в аннотации @Default
+                    для переданного класса.
+                </result>
+            </method>
+
+        </methods>
+    </class>
+
+</documentation>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Two -->
+    <annotation>
+        <name>Two</name>
+        <description>
+            Аннотация @Two предназначена для маркировки классов (типов)
+            дополнительной информацией: строковым и числовым значением.
+        </description>
+
+        <characteristics>
+            <target>Тип (TYPE)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>
+                <property>
+                    <name>first</name>
+                    <type>String</type>
+                    <description>Строковое свойство, обязательное к заполнению.</description>
+                </property>
+                <property>
+                    <name>second</name>
+                    <type>int</type>
+                    <description>Целочисленное свойство, обязательное к заполнению.</description>
+                </property>
+            </properties>
+        </characteristics>
+
+        <purpose>
+            Аннотация позволяет прикреплять к классу два значения – строку и число,
+            которые затем могут быть прочитаны и использованы обработчиком
+            через Reflection API.
+        </purpose>
+    </annotation>
+
+
+    <!-- Документация класса TwoClass -->
+    <class>
+        <name>TwoClass</name>
+        <description>
+            Класс TwoClass служит примером использования аннотации @Two.
+            Не содержит полей или методов, но имеет прикреплённую аннотацию,
+            которая может быть считана обработчиком.
+        </description>
+
+        <annotation-info>
+            <applied>@Two(first = "ИТ", second = 8)</applied>
+            <description>
+                Аннотация содержит строковое значение "ИТ" и числовое значение 8,
+                которые демонстрируют работу механизма чтения аннотаций.
+            </description>
+        </annotation-info>
+    </class>
+
+
+    <!-- Документация обработчика TwoProcessor -->
+    <class>
+        <name>TwoProcessor</name>
+        <description>
+            Класс TwoProcessor предназначен для анализа типов, помеченных аннотацией @Two.
+            Он получает класс, проверяет наличие аннотации и выводит значения её свойств.
+        </description>
+
+        <methods>
+            <method>
+                <name>process</name>
+                <description>
+                    Метод принимает объект типа Class и проверяет,
+                    содержит ли он аннотацию @Two. Если содержит —
+                    выводит значения свойств first и second.
+                </description>
+
+                <steps>
+                    <step>1. Получить переданный класс.</step>
+                    <step>2. Проверить, есть ли у класса аннотация @Two.</step>
+                    <step>3. Если аннотация присутствует — извлечь её объект.</step>
+                    <step>4. Вывести свойства first и second в консоль.</step>
+                    <step>5. Если аннотации нет — вывести соответствующее сообщение.</step>
+                </steps>
+
+                <result>
+                    Значения first и second аннотации @Two будут выведены на экран.
+                </result>
+            </method>
+        </methods>
+    </class>
+
+</documentation>

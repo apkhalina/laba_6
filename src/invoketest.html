@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Invoke -->
+    <annotation>
+        <name>Invoke</name>
+        <description>
+            Аннотация @Invoke используется для пометки методов, которые должны
+            быть автоматически вызваны специальным обработчиком через Reflection API.
+        </description>
+        <characteristics>
+            <target>Метод (METHOD)</target>
+            <retention>Доступна во время выполнения программы (RUNTIME)</retention>
+            <properties>Не содержит никаких параметров</properties>
+        </characteristics>
+        <purpose>
+            Предназначена для указания, какие методы нужно выполнить автоматически
+            при обработке объекта с помощью InvokeProcessor.
+        </purpose>
+    </annotation>
+
+    <!-- Документация класса InvokeTestClass -->
+    <class>
+        <name>InvokeTestClass</name>
+        <description>
+            Класс содержит поля и методы, часть которых помечена аннотацией @Invoke.
+            Эти методы будут автоматически вызваны обработчиком InvokeProcessor.
+        </description>
+
+        <fields>
+            <field>
+                <name>flag</name>
+                <type>boolean</type>
+                <description>
+                    Флаг, изменяемый методом setFlag(), который помечен аннотацией @Invoke.
+                </description>
+            </field>
+
+            <field>
+                <name>counter</name>
+                <type>int</type>
+                <description>
+                    Счётчик, который увеличивается методом increment(), также помеченным @Invoke.
+                </description>
+            </field>
+        </fields>
+
+        <methods>
+            <method>
+                <name>setFlag</name>
+                <marked-with-invoke>Да</marked-with-invoke>
+                <description>
+                    Устанавливает значение поля flag в true. Метод будет автоматически
+                    вызван обработчиком благодаря аннотации @Invoke.
+                </description>
+            </method>
+
+            <method>
+                <name>increment</name>
+                <marked-with-invoke>Да</marked-with-invoke>
+                <description>
+                    Увеличивает значение поля counter на 1. Также вызывается автоматически
+                    благодаря аннотации @Invoke.
+                </description>
+            </method>
+
+            <method>
+                <name>notAnnotated</name>
+                <marked-with-invoke>Нет</marked-with-invoke>
+                <description>
+                    Увеличивает counter на 10, однако не вызывается обработчиком,
+                    поскольку не помечен аннотацией @Invoke.
+                </description>
+            </method>
+        </methods>
+    </class>
+
+    <!-- Документация обработчика InvokeProcessor -->
+    <class>
+        <name>InvokeProcessor</name>
+        <description>
+            Класс отвечает за автоматический поиск и вызов методов, помеченных
+            аннотацией @Invoke. Для выполнения методов используется Reflection API.
+        </description>
+
+        <methods>
+            <method>
+                <name>process</name>
+                <description>
+                    Принимает объект, анализирует его методы и вызывает те,
+                    которые помечены аннотацией @Invoke.
+                </description>
+
+                <steps>
+                    <step>1. Получить класс переданного объекта.</step>
+                    <step>2. Найти все методы класса.</step>
+                    <step>3. Проверить каждый метод на наличие аннотации @Invoke.</step>
+                    <step>4. Сделать метод доступным для вызова (setAccessible(true)).</step>
+                    <step>5. Вызвать помеченный метод через Reflection.</step>
+                    <step>6. Обработать и вывести возможные исключения.</step>
+                </steps>
+
+                <result>
+                    Все методы объекта, помеченные @Invoke, будут автоматически выполнены.
+                </result>
+            </method>
+        </methods>
+    </class>
+    <!-- Документация тестового класса InvokeProcessorTest -->
+    <class>
+        <name>InvokeProcessorTest</name>
+        <description>
+            Класс содержит модульные тесты, проверяющие корректность работы
+            аннотации @Invoke и обработчика InvokeProcessor.
+            Использует библиотеку JUnit Jupiter (JUnit 5).
+        </description>
+
+        <fields>
+            <field>
+                <name>invokeClass</name>
+                <type>InvokeTestClass</type>
+                <description>
+                    Объект, над которым выполняется тестируемая логика.
+                    Инициализируется перед каждым тестом.
+                </description>
+            </field>
+        </fields>
+
+        <methods>
+
+            <method>
+                <name>setup</name>
+                <marked-with-test>Нет (это @BeforeEach)</marked-with-test>
+                <description>
+                    Метод выполняется перед каждым тестом. Создаёт новый объект
+                    InvokeTestClass, чтобы каждый тест работал в чистом состоянии.
+                </description>
+            </method>
+
+            <method>
+                <name>testInvokeMethods</name>
+                <marked-with-test>Да</marked-with-test>
+                <description>
+                    Проверяет, что обработчик корректно вызывает методы,
+                    помеченные аннотацией @Invoke.
+                </description>
+
+                <assertions>
+                    <assertion>
+                        <type>assertTrue</type>
+                        <description>Проверяет, что флаг был установлен.</description>
+                    </assertion>
+                    <assertion>
+                        <type>assertEquals</type>
+                        <description>Проверяет, что counter увеличен ровно на 1.</description>
+                    </assertion>
+                    <assertion>
+                        <type>assertNotEquals</type>
+                        <description>
+                            Убеждается, что counter не равен 10 — значит,
+                            неаннотированный метод не был вызван.
+                        </description>
+                    </assertion>
+                </assertions>
+            </method>
+
+            <method>
+                <name>testNoExceptions</name>
+                <marked-with-test>Да</marked-with-test>
+                <description>
+                    Проверяет, что процессинг аннотированных методов не генерирует исключений.
+                </description>
+
+                <assertions>
+                    <assertion>
+                        <type>assertDoesNotThrow</type>
+                        <description>
+                            Гарантирует, что вызов InvokeProcessor.process()
+                            проходит без ошибок.
+                        </description>
+                    </assertion>
+                </assertions>
+            </method>
+
+        </methods>
+    </class>
+
+
+</documentation>

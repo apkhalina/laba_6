@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+
+    <!-- Документация аннотации @Validate -->
+    <annotation>
+        <name>Validate</name>
+        <description>
+            Аннотация @Validate используется для указания списка типов,
+            которые должны быть обработаны, проверены или использованы
+            валидационным механизмом приложения.
+        </description>
+
+        <characteristics>
+            <target>Тип (TYPE), Аннотация (ANNOTATION_TYPE)</target>
+            <retention>
+                Доступна во время выполнения программы (RUNTIME).
+            </retention>
+            <properties>
+                Обязательное свойство value типа Class[] — массив классов,
+                которые требуется проверить.
+            </properties>
+        </characteristics>
+
+        <purpose>
+            Аннотация задаёт набор типов, которые должны быть
+            обработаны или проанализированы специальным обработчиком.
+        </purpose>
+    </annotation>
+
+    <!-- Документация класса ValidateClass -->
+    <class>
+        <name>ValidateClass</name>
+        <description>
+            Класс, помеченный аннотацией @Validate. Содержит список типов,
+            переданных в аннотации, которые должны быть выведены или
+            использованы обработчиком для последующей проверки.
+        </description>
+
+        <annotation-usage>
+            <validate-types>
+                <type>java.lang.String</type>
+                <type>java.lang.Integer</type>
+                <type>java.util.List</type>
+            </validate-types>
+        </annotation-usage>
+    </class>
+
+    <!-- Документация обработчика ValidateProcessor -->
+    <class>
+        <name>ValidateProcessor</name>
+        <description>
+            Этот класс получает тип (класс), проверяет наличие аннотации
+            @Validate и выводит список всех классов, указанных в её свойстве value.
+            Для анализа используется Reflection API.
+        </description>
+
+        <methods>
+            <method>
+                <name>process</name>
+                <description>
+                    Метод принимает класс, извлекает из него аннотацию @Validate
+                    и выводит все классы, переданные в параметре value аннотации.
+                </description>
+
+                <steps>
+                    <step>1. Проверить, присутствует ли на классе аннотация @Validate.</step>
+                    <step>2. Если аннотация есть — получить её экземпляр.</step>
+                    <step>3. Извлечь массив классов из свойства value.</step>
+                    <step>4. Вывести названия всех этих классов.</step>
+                    <step>5. Если аннотации нет — вывести сообщение об её отсутствии.</step>
+                </steps>
+
+                <result>
+                    На экран выводится полный список типов, указанных в аннотации @Validate.
+                </result>
+            </method>
+        </methods>
+    </class>
+
+</documentation>
